@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather API</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+</head>
+<body>
+    
+        <div class="container py-5 h-100">
+      
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-8 col-lg-6 col-xl-4">
+      
+              <h3 class="mb-4 pb-2 fw-normal">Check the weather forecast</h3>
+              <form action="" method="post">
+                <div class="input-group rounded mb-3">
+                  <input type="search" class="form-control rounded" placeholder="City" name="city" aria-label="Search"aria-describedby="search-addon" />
+                    <button  class="input-group-text border-0 fw-bold" id="search-addon" name="form_type" value="city_name">
+                        Check!
+                    </button>
+                </div>
+              </form>
+              <div class="search-box">
+                {% if message %}
+                 {{message}}
+                {% elif details %}
+                  {% for location in details.locations %}
+                  <form action="" method="post">
+                    <div class="list-group" >
+                      <input type="hidden" name="lat" value="{{ details.lat_code[loop.index0] }}">
+                      <input type="hidden" name="lon" value="{{ details.lon_code[loop.index0] }}">
+                      <button name="form_type" value="city_details" type="submit" class="list-group-item list-group-item-action" href="" >{{location[0]}}{{location[1]}}</button>
+                    </div>
+                  </form >
+                  {% endfor %}
+                {% endif %}
+              </div>
+              <div class="mb-4 pb-2">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                    value="option1" checked />
+                  <label class="form-check-label" for="inlineRadio1">Celsius</label>
+                </div>
+      
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                    value="option2" />
+                  <label class="form-check-label" for="inlineRadio2">Farenheit</label>
+                </div>
+              </div>
+              {% if not output  %}
+              {% else %}
+              <div class="card text-body" style=" border-radius: 35px;">
+                <div class="card-body p-4">
+          
+                  <div class="d-flex">
+                    
+                    <h6 class="flex-grow-1">{{ output[0][8] }}</h6>
+                  
+                    
+                    <h6>{{output[0][2]}}</h6>
+                  </div>
+          
+                  <div class="d-flex flex-column text-center mt-5 mb-4">
+                    <h6 class="display-4 mb-0 font-weight-bold">{{output[0][4]}}℃</h6>
+                    <span class="small" style="color: #868B94">{{output[0][5]}}</span>
+                  </div>
+          
+                  <div class="d-flex align-items-center">
+                    <div class="flex-grow-1" style="font-size: 1rem;">
+                      <div><i class="fas fa-wind fa-fw" style="color: #868B94;"></i> <span class="ms-1"> {{output[0][6]}} km/h
+                        </span>
+                      </div>
+                      <div><i class="fas fa-tint fa-fw" style="color: #868B94;"></i> <span class="ms-1"> {{output[0][7]}}%
+                        </span></div>
+                      <div><i class="fas fa-sun fa-fw" style="color: #868B94;"></i> <span class="ms-1"> {{output[0][3]}}
+                        </span></div>
+                    </div>
+                    <div>
+                      <img src="http://openweathermap.org/img/wn/{{output[0][3]}}@2x.png" alt="Weather icon">
+                        
+                    </div>
+                  </div>
+          
+                </div>
+              </div>
+              {% endif %}
+          
+      
+            </div>
+          </div>
+      
+        </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  
+</body>
+</html>
